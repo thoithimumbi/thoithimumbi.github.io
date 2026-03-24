@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  <title>Smart Control Robot with Environmental and Human Monitoring</title><link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+    <link href="http://localhost:1313/favicon.png" rel="icon">
+  
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="">
+  <meta name="author" content="thoithimumbi"><meta name="generator" content="Hugo 0.158.0">
+
+</head>
+<body><header role="banner"><hgroup><h1><a href="http://localhost:1313/">Thoithi Mumbi</a></h1>
+    <h2>A Collection Of All My Works</h2>
+</hgroup></header><nav role="navigation"><fieldset class="mobile-nav"><select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+        <option value="http://localhost:1313/">» Home</option>
+      
+        <option value="http://localhost:1313/posts">» Posts</option>
+      
+        <option value="http://localhost:1313/papers">» Papers</option>
+      
+  </select>
+</fieldset><ul class="main-navigation">
+    
+      <li><a href="http://localhost:1313/" title="Home">Home</a></li>
+    
+  
+    
+      <li><a href="http://localhost:1313/posts" title="Posts"  target="_blank"  rel="noopener noreferrer">Posts</a></li>
+    
+  
+    
+      <li><a href="http://localhost:1313/papers" title="Papers"  target="_blank"  rel="noopener noreferrer">Papers</a></li>
+    
+  
+</ul>
+
+<ul class="subscription">
+  
+    
+        <a href="http://localhost:1313/index.xml" target="_blank" type="application/rss+xml" title="RSS" rel="noopener noreferrer"><i class="fa fa-rss-square fa-lg"></i></a>
+    
+  
+</ul>
+
+
+  <form action="https://www.google.com/search" method="get" target="_blank" rel="noopener noreferrer">
+    <fieldset role="search">
+      <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+      <input type="hidden" name="q" value="site:http://localhost:1313/" />
+    </fieldset>
+  </form>
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        <header>
+  <p class="meta">Mar 2, 2026
+     - 3 minute read 
+  </p>
+  <h1 class="entry-title">
+     Smart Control Robot with Environmental and Human Monitoring 
+  </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          <p>This project implements a mobile robotic system that patrols an area, avoiding obstacles, detecting motion, verifying human presence via body temperature, and monitoring for toxic gases such as <strong>CO₂</strong> and <strong>SO₂</strong>. It uses various sensors and outputs alerts using a buzzer and LED when potential hazards or humans in distress are detected.</p>
+<h2 id="preview">Preview</h2>
+<p>
+<a href="https://github.com/thoithimumbi/Autonomous-SaR-Robot" target="_blank" rel="noopener">![Project Repo]</a></p>
+<h2 id="features">Features</h2>
+<ul>
+<li><strong>Autonomous Navigation</strong> with ultrasonic obstacle avoidance</li>
+<li><strong>Human Presence Detection</strong> using PIR sensor and temperature validation</li>
+<li><strong>Temperature Monitoring</strong> with LM35 analog sensor</li>
+<li><strong>Gas Detection</strong> using MQ-136 (SO₂) and MG-811 (CO₂) sensors</li>
+<li><strong>Audible and Visual Alerts</strong> with buzzer and LED</li>
+<li><strong>Motion-based human tracking</strong> for rescue or safety monitoring scenarios</li>
+</ul>
+<h2 id="hardware-components">Hardware Components</h2>
+<table>
+  <thead>
+      <tr>
+          <th>Component</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Arduino Board</td>
+          <td>Microcontroller (Uno3.)</td>
+      </tr>
+      <tr>
+          <td>HC-SR04</td>
+          <td>Ultrasonic Distance Sensor</td>
+      </tr>
+      <tr>
+          <td>LM35</td>
+          <td>Temperature Sensor</td>
+      </tr>
+      <tr>
+          <td>MG-811</td>
+          <td>CO₂ Gas Sensor</td>
+      </tr>
+      <tr>
+          <td>MQ-136</td>
+          <td>SO₂ Gas Sensor</td>
+      </tr>
+      <tr>
+          <td>PIR Motion Sensor</td>
+          <td>For detecting human motion</td>
+      </tr>
+      <tr>
+          <td>Buzzer</td>
+          <td>Audible alert system</td>
+      </tr>
+      <tr>
+          <td>LED</td>
+          <td>Visual alert indicator</td>
+      </tr>
+      <tr>
+          <td>Motor Driver &amp; Motors</td>
+          <td>For forward/backward movement</td>
+      </tr>
+      <tr>
+          <td>Power Source</td>
+          <td>Battery pack or external power</td>
+      </tr>
+      <tr>
+          <td>Miscellaneous</td>
+          <td>Jumper wires, resistors, breadboard</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="pin-configuration">Pin Configuration</h2>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#719e07">#define TRIG_PIN     9     </span><span style="color:#586e75">// Ultrasonic TRIG
+</span></span></span><span style="display:flex;"><span><span style="color:#719e07">#define ECHO_PIN     8     </span><span style="color:#586e75">// Ultrasonic ECHO
+</span></span></span><span style="display:flex;"><span><span style="color:#719e07">#define CO2_SENSOR   A0    </span><span style="color:#586e75">// CO₂ analog input
+</span></span></span><span style="display:flex;"><span><span style="color:#719e07">#define TEMP_SENSOR  A1    </span><span style="color:#586e75">// LM35 analog input
+</span></span></span><span style="display:flex;"><span><span style="color:#719e07">#define SO2_SENSOR   A2    </span><span style="color:#586e75">// SO₂ analog input
+</span></span></span><span style="display:flex;"><span><span style="color:#719e07">#define PIR_SENSOR   7     </span><span style="color:#586e75">// PIR motion detection
+</span></span></span><span style="display:flex;"><span><span style="color:#719e07">#define BUZZER_PIN   6     </span><span style="color:#586e75">// Buzzer output
+</span></span></span><span style="display:flex;"><span><span style="color:#719e07">#define LED_PIN      5     </span><span style="color:#586e75">// LED indicator
+</span></span></span><span style="display:flex;"><span><span style="color:#719e07">#define IN1          2     </span><span style="color:#586e75">// Motor control pin 1
+</span></span></span><span style="display:flex;"><span><span style="color:#719e07">#define IN2          3     </span><span style="color:#586e75">// Motor control pin 2
+</span></span></span><span style="display:flex;"><span><span style="color:#719e07">#define IN3          4     </span><span style="color:#586e75">// Motor control pin 3
+</span></span></span><span style="display:flex;"><span><span style="color:#719e07">#define IN4          10    </span><span style="color:#586e75">// Motor control pin 4
+</span></span></span></code></pre></div><h2 id="how-it-works">How It Works</h2>
+<ol>
+<li>
+<p><strong>Obstacle Avoidance</strong><br>
+The HC-SR04 measures the distance in front of the robot. If an object is closer than 20 cm, it stops to avoid collision.</p>
+</li>
+<li>
+<p><strong>Gas Monitoring</strong><br>
+The robot continuously checks analog values from the CO₂ and SO₂ sensors. If levels exceed the set thresholds, it triggers an alert.</p>
+</li>
+<li>
+<p><strong>Human Detection</strong><br>
+The PIR sensor detects motion. If detected, it verifies human presence by checking body temperature using the LM35. If within the human range (36.5°C - 42°C), it raises an alert.</p>
+</li>
+<li>
+<p><strong>Motion Behavior</strong><br>
+If motion is detected, the robot briefly moves forward toward the motion source and stops. If no motion is detected for 5 seconds, it resumes normal patrol.</p>
+</li>
+</ol>
+<h2 id="threshold-values">Threshold Values</h2>
+<table>
+  <thead>
+      <tr>
+          <th>Parameter</th>
+          <th>Threshold</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Distance (cm)</td>
+          <td><code>&lt; 20</code></td>
+      </tr>
+      <tr>
+          <td>CO₂ Analog Value</td>
+          <td><code>&gt; 600</code></td>
+      </tr>
+      <tr>
+          <td>SO₂ Analog Value</td>
+          <td><code>&gt; 700</code></td>
+      </tr>
+      <tr>
+          <td>Temperature (°C)</td>
+          <td><code>36.5 – 42.0</code></td>
+      </tr>
+  </tbody>
+</table>
+<p>You can calibrate these values based on your sensor models and environmental conditions.</p>
+<h2 id="example-output-serial-monitor">Example Output (Serial Monitor)</h2>
+<pre tabindex="0"><code>Distance: 15.32 cm
+Obstacle too close. Stopping.
+
+CO₂ Reading: 685
+SO₂ Reading: 701
+High CO₂ concentration detected!
+High SO₂ concentration detected!
+ALERT: Toxic gas detected!
+
+Motion detected!
+Temperature: 37.2 °C
+Valid human body temperature detected!
+ALERT: Human presence verified!
+</code></pre><h2 id="setup-instructions">Setup Instructions</h2>
+<ol>
+<li>Assemble the hardware according to the pin layout.</li>
+<li>Upload the provided <code>.ino</code> code to your Arduino board using the Arduino IDE.</li>
+<li>Open the Serial Monitor at 9600 baud to view live sensor data and debug information.</li>
+<li>Power the robot and observe its patrol, alert, and movement behaviors.</li>
+</ol>
+<h2 id="file-structure">File Structure</h2>
+<pre tabindex="0"><code>Autonomous-SaR/
+├── .pio/                   # PlatformIO build system files
+├── .vscode/                # VS Code settings
+├── include/                # Header files (if any)
+├── lib/
+│   └── README.md           # Library documentation or notes
+├── src/
+│   └── main.cpp            # Main Arduino source code
+├── test/                   # Unit or integration tests
+    └── README              # Unit tests using PlatformIO Test Runner
+├── .gitignore              # Git ignore rules
+├── platformio.ini          # PlatformIO project configuration
+└── README.md               # Project documentation
+</code></pre><h2 id="future-improvements">Future Improvements</h2>
+<ul>
+<li>Add GPS module for location tracking</li>
+<li>Integrate a GSM module for SMS alerts</li>
+<li>Enable wireless remote control</li>
+<li>Add camera for visual monitoring</li>
+</ul>
+<h2 id="license">License</h2>
+<p>This project is open-source and available under the 
+<a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener">MIT License</a>.</p>
+
+        </div>
+        <footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn">thoithimumbi</span></span><time>Mar 2, 2026</time>
+    
+    </span>
+  </p><p class="meta">
+    
+        <a class="basic-alignment left" href="http://localhost:1313/posts/ti_msp0/" title="TI_MSPM0">TI_MSPM0</a>
+    
+
+    
+  </p>
+  
+  
+</footer>
+
+
+      </article>
+    </div>
+    <aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About</h1>
+    
+
+    <p>
+      
+        <p>I am a Mechatronic Engineering student focused on Hardware design, Firmware development, 3D Design, Control Systems and Automotive Engineering.</p>
+<p>This site serves as a technical portfolio<br>
+Documenting projects, system designs and journals.</p>
+<p>Connect</p>
+
+      
+    </p>
+  </section><ul class="sidebar-nav">
+  <li class="sidebar-nav-item">
+    <a target="_blank" rel="noopener noreferrer" href="https://github.com/thoithimumbi" title="https://github.com/thoithimumbi"><i class="fa fa-github fa-3x"></i></a>
+    
+    
+    
+    <a target="_blank" rel="me noopener noreferrer" href="https://mastodon.social/@Thoithi" title="https://mastodon.social/@Thoithi"><i class="fa fa-mastodon fa-3x"></i></a>
+    
+    <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/thoithi-mumbi" title="https://www.linkedin.com/in/thoithi-mumbi"><i class="fa fa-linkedin fa-3x"></i></a>
+    
+    
+    
+    
+    </li>
+</ul>
+    
+      <section class="odd">
+        
+          <h1>Links</h1>
+        
+        
+          <li>
+            <a href="http://localhost:1313/about" title="About Page" >About Page</a>
+          </li>
+        
+      </section>
+    
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+        </ul>
+      </section>
+    
+  
+</aside>
+
+  </div>
+</div>
+
+    <footer role="contentinfo">
+      <p>Copyright &copy; 2026 thoithimumbi - <a href="http://localhost:1313/license/">License</a> -
+        <span class="credit">Powered by <a target="_blank" href="https://gohugo.io" rel="noopener noreferrer">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/" rel="noopener noreferrer">Hugo-Octopress</a> theme.
+      </p>
+    </footer>
+  </body>
+</html>
+

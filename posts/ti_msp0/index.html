@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  <title>TI_MSPM0</title><link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+    <link href="http://localhost:1313/favicon.png" rel="icon">
+  
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="">
+  <meta name="author" content="thoithimumbi"><meta name="generator" content="Hugo 0.158.0">
+
+</head>
+<body><header role="banner"><hgroup><h1><a href="http://localhost:1313/">Thoithi Mumbi</a></h1>
+    <h2>A Collection Of All My Works</h2>
+</hgroup></header><nav role="navigation"><fieldset class="mobile-nav"><select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+        <option value="http://localhost:1313/">» Home</option>
+      
+        <option value="http://localhost:1313/posts">» Posts</option>
+      
+        <option value="http://localhost:1313/papers">» Papers</option>
+      
+  </select>
+</fieldset><ul class="main-navigation">
+    
+      <li><a href="http://localhost:1313/" title="Home">Home</a></li>
+    
+  
+    
+      <li><a href="http://localhost:1313/posts" title="Posts"  target="_blank"  rel="noopener noreferrer">Posts</a></li>
+    
+  
+    
+      <li><a href="http://localhost:1313/papers" title="Papers"  target="_blank"  rel="noopener noreferrer">Papers</a></li>
+    
+  
+</ul>
+
+<ul class="subscription">
+  
+    
+        <a href="http://localhost:1313/index.xml" target="_blank" type="application/rss+xml" title="RSS" rel="noopener noreferrer"><i class="fa fa-rss-square fa-lg"></i></a>
+    
+  
+</ul>
+
+
+  <form action="https://www.google.com/search" method="get" target="_blank" rel="noopener noreferrer">
+    <fieldset role="search">
+      <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+      <input type="hidden" name="q" value="site:http://localhost:1313/" />
+    </fieldset>
+  </form>
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        <header>
+  <p class="meta">Mar 2, 2026
+     - 2 minute read 
+  </p>
+  <h1 class="entry-title">
+     TI_MSPM0 
+  </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          <h1 id="mspm0-based-usb-development-board-with-integrated-motion-sensing">MSPM0-Based USB Development Board with Integrated Motion Sensing</h1>
+<h2 id="project-overview">Project Overview</h2>
+<p>This project is a custom-designed embedded development board built around the Texas Instruments MSPM0G3507 ARM Cortex-M0+ microcontroller. The objective was to design a complete, USB-powered embedded platform from schematic level, focusing on power integrity, clock stability, communication interfaces, and debug accessibility.</p>
+<p>The board integrates a USB-C power interface, on-board 3.3V regulation, USB-to-UART communication, SWD programming interface, external crystal oscillator, and an I2C-based accelerometer for motion sensing applications.</p>
+<p>This project demonstrates full embedded hardware design workflow: system architecture, schematic capture, peripheral integration, and production-aware design practices.</p>
+<hr>
+<h2 id="preview">Preview</h2>
+<p>
+<a href="https://github.com/thoithimumbi/TI_MSPM0" target="_blank" rel="noopener">![Project Repo]</a></p>
+<hr>
+<h2 id="system-architecture">System Architecture</h2>
+<p>The system is divided into the following functional blocks:</p>
+<ul>
+<li>USB-C Power Input</li>
+<li>3.3V Low-Dropout Regulation</li>
+<li>MSPM0 Microcontroller Core</li>
+<li>USB–UART Communication Bridge</li>
+<li>External High-Frequency Crystal Oscillator</li>
+<li>SWD Debug Interface</li>
+<li>I2C Accelerometer Sensor Subsystem</li>
+</ul>
+<p>Each subsystem was designed with proper decoupling, signal routing consideration, and modular separation to ensure clean integration.</p>
+<hr>
+<h2 id="power-architecture">Power Architecture</h2>
+<p>The board is powered via USB-C (5V VBUS). Power is regulated to 3.3V using an SPX3819 LDO regulator.</p>
+<p><strong>Design considerations:</strong></p>
+<ul>
+<li>Input and output bulk + high-frequency decoupling capacitors</li>
+<li>Stable 3.3V rail for MCU and sensor operation</li>
+<li>Clean ground reference</li>
+<li>USB device-mode CC configuration resistors</li>
+</ul>
+<p>The LDO-based design prioritizes low noise and simplicity over switching efficiency, suitable for low-power embedded applications.</p>
+<hr>
+<h2 id="microcontroller-subsystem">Microcontroller Subsystem</h2>
+<p>At the core of the design is the MSPM0G3507 microcontroller featuring:</p>
+<ul>
+<li>ARM Cortex-M0+ core</li>
+<li>UART interface for serial communication</li>
+<li>I2C peripheral for sensor communication</li>
+<li>SWD interface for programming and debugging</li>
+<li>External crystal support for accurate timing</li>
+</ul>
+<p><strong>Design considerations:</strong></p>
+<ul>
+<li>Local decoupling capacitors close to VDD pins</li>
+<li>Dedicated reset pull-up and filtering capacitor</li>
+<li>Proper VREF decoupling</li>
+<li>Clean oscillator load matching capacitors</li>
+</ul>
+<p>This reflects production-grade MCU integration practices.</p>
+<hr>
+<h2 id="communication-interfaces">Communication Interfaces</h2>
+<h3 id="usbuart-interface">USB–UART Interface</h3>
+<p>A CH340 USB-to-Serial converter provides:</p>
+<ul>
+<li>Virtual COM port over USB</li>
+<li>Direct firmware logging and debugging</li>
+<li>Simplified development workflow</li>
+</ul>
+<h3 id="i2c-sensor-interface">I2C Sensor Interface</h3>
+<p>An onboard accelerometer is connected via I2C with:</p>
+<ul>
+<li>External pull-up resistors</li>
+<li>Interrupt lines routed to the MCU</li>
+<li>Local decoupling capacitor</li>
+</ul>
+<p>This enables motion-based embedded applications and sensor fusion experimentation.</p>
+<hr>
+<h2 id="debug--programming-interface">Debug &amp; Programming Interface</h2>
+<p>A dedicated SWD header provides:</p>
+<ul>
+<li>SWDIO</li>
+<li>SWCLK</li>
+<li>NRST</li>
+<li>3.3V reference</li>
+<li>Ground</li>
+</ul>
+<p>This ensures professional debugging capability using external debuggers.</p>
+
+        </div>
+        <footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn">thoithimumbi</span></span><time>Mar 2, 2026</time>
+    
+    </span>
+  </p><p class="meta">
+    
+
+    
+      <a class="basic-alignment right" href="http://localhost:1313/posts/autonomous_sar_robot/" title="Smart Control Robot with Environmental and Human Monitoring">Smart Control Robot with Environmental and Human Monitoring</a>
+    
+  </p>
+  
+  
+</footer>
+
+
+      </article>
+    </div>
+    <aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About</h1>
+    
+
+    <p>
+      
+        <p>I am a Mechatronic Engineering student focused on Hardware design, Firmware development, 3D Design, Control Systems and Automotive Engineering.</p>
+<p>This site serves as a technical portfolio<br>
+Documenting projects, system designs and journals.</p>
+<p>Connect</p>
+
+      
+    </p>
+  </section><ul class="sidebar-nav">
+  <li class="sidebar-nav-item">
+    <a target="_blank" rel="noopener noreferrer" href="https://github.com/thoithimumbi" title="https://github.com/thoithimumbi"><i class="fa fa-github fa-3x"></i></a>
+    
+    
+    
+    <a target="_blank" rel="me noopener noreferrer" href="https://mastodon.social/@Thoithi" title="https://mastodon.social/@Thoithi"><i class="fa fa-mastodon fa-3x"></i></a>
+    
+    <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/thoithi-mumbi" title="https://www.linkedin.com/in/thoithi-mumbi"><i class="fa fa-linkedin fa-3x"></i></a>
+    
+    
+    
+    
+    </li>
+</ul>
+    
+      <section class="odd">
+        
+          <h1>Links</h1>
+        
+        
+          <li>
+            <a href="http://localhost:1313/about" title="About Page" >About Page</a>
+          </li>
+        
+      </section>
+    
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+        </ul>
+      </section>
+    
+  
+</aside>
+
+  </div>
+</div>
+
+    <footer role="contentinfo">
+      <p>Copyright &copy; 2026 thoithimumbi - <a href="http://localhost:1313/license/">License</a> -
+        <span class="credit">Powered by <a target="_blank" href="https://gohugo.io" rel="noopener noreferrer">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/" rel="noopener noreferrer">Hugo-Octopress</a> theme.
+      </p>
+    </footer>
+  </body>
+</html>
+
