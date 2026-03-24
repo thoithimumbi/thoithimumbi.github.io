@@ -184,10 +184,29 @@ The HC-SR04 measures the distance in front of the robot. If an object is closer 
 </header>
 
           
-            <p><h1 id="mspm0-based-usb-development-board-with-integrated-motion-sensing">MSPM0-Based USB Development Board with Integrated Motion Sensing</h1>
-<h2 id="project-overview">Project Overview</h2>
-<p>This project is a custom-designed embedded development board built around the Texas Instruments MSPM0G3507 ARM Cortex-M0+ microcontroller. The objective was to design a complete, USB-powered embedded platform from schematic level, focusing on power integrity, clock stability, communication interfaces, and debug accessibility.</p>
-<p>The board integrates a USB-C power interface, on-board 3.3V regulation, USB-to-UART communication, SWD programming interface, external crystal oscillator, and an I2C-based accelerometer for motion sensing applications.</p></p>
+            <p><h1 id="low-power-mspm0-sensor-node-with-usb-c-connectivity">Low-Power MSPM0 Sensor Node with USB-C Connectivity</h1>
+<h2 id="system-overview">System Overview</h2>
+<p>The board is powered via a USB-C connector, providing a primary 5V rail which is regulated to 3.3V for the MCU and onboard peripherals.</p>
+<p>The system integrates:</p>
+<ul>
+<li>A high-performance ARM Cortex-M0+ microcontroller</li>
+<li>A USB-to-UART bridge for direct serial communication</li>
+<li>A 3-axis accelerometer for motion sensing applications</li>
+</ul>
+<hr>
+<h2 id="functional-blocks">Functional Blocks</h2>
+<h3 id="power-management">Power Management</h3>
+<ul>
+<li><strong>Input:</strong> +5V from USB VBUS</li>
+<li><strong>Regulation:</strong> SPX3819M5-L-3-3 LDO → 3.3V rail</li>
+<li><strong>Filtering:</strong>
+<ul>
+<li>10 µF (bulk)</li>
+<li>470 nF (high-frequency bypass)</li>
+</ul>
+</li>
+</ul>
+<p>Decoupling capacitors are placed on both input and output stages to reduce noise and ensure rail stability.</p></p>
             
               <footer>
                 <a href="https://thoithimumbi.github.io/posts/ti_msp0/" rel="full-article">Continue&hellip;.. →</a>

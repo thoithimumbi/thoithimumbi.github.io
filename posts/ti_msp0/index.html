@@ -83,85 +83,188 @@
 
         <div class="entry-content">
           
-          <h1 id="mspm0-based-usb-development-board-with-integrated-motion-sensing">MSPM0-Based USB Development Board with Integrated Motion Sensing</h1>
-<h2 id="project-overview">Project Overview</h2>
-<p>This project is a custom-designed embedded development board built around the Texas Instruments MSPM0G3507 ARM Cortex-M0+ microcontroller. The objective was to design a complete, USB-powered embedded platform from schematic level, focusing on power integrity, clock stability, communication interfaces, and debug accessibility.</p>
-<p>The board integrates a USB-C power interface, on-board 3.3V regulation, USB-to-UART communication, SWD programming interface, external crystal oscillator, and an I2C-based accelerometer for motion sensing applications.</p>
-<p>This project demonstrates full embedded hardware design workflow: system architecture, schematic capture, peripheral integration, and production-aware design practices.</p>
+          <h1 id="low-power-mspm0-sensor-node-with-usb-c-connectivity">Low-Power MSPM0 Sensor Node with USB-C Connectivity</h1>
+<h2 id="system-overview">System Overview</h2>
+<p>The board is powered via a USB-C connector, providing a primary 5V rail which is regulated to 3.3V for the MCU and onboard peripherals.</p>
+<p>The system integrates:</p>
+<ul>
+<li>A high-performance ARM Cortex-M0+ microcontroller</li>
+<li>A USB-to-UART bridge for direct serial communication</li>
+<li>A 3-axis accelerometer for motion sensing applications</li>
+</ul>
 <hr>
-<h2 id="preview">Preview</h2>
-<p>
-<a href="https://github.com/thoithimumbi/TI_MSPM0" target="_blank" rel="noopener">![Project Repo]</a></p>
+<h2 id="functional-blocks">Functional Blocks</h2>
+<h3 id="power-management">Power Management</h3>
+<ul>
+<li><strong>Input:</strong> +5V from USB VBUS</li>
+<li><strong>Regulation:</strong> SPX3819M5-L-3-3 LDO → 3.3V rail</li>
+<li><strong>Filtering:</strong>
+<ul>
+<li>10 µF (bulk)</li>
+<li>470 nF (high-frequency bypass)</li>
+</ul>
+</li>
+</ul>
+<p>Decoupling capacitors are placed on both input and output stages to reduce noise and ensure rail stability.</p>
 <hr>
-<h2 id="system-architecture">System Architecture</h2>
-<p>The system is divided into the following functional blocks:</p>
+<h3 id="microcontroller-ti-mspm0g3507">Microcontroller (TI MSPM0G3507)</h3>
+<p>The MSPM0G3507PTR (LQFP-48) serves as the central processing unit.</p>
+<p><strong>Key configurations:</strong></p>
 <ul>
-<li>USB-C Power Input</li>
-<li>3.3V Low-Dropout Regulation</li>
-<li>MSPM0 Microcontroller Core</li>
-<li>USB–UART Communication Bridge</li>
-<li>External High-Frequency Crystal Oscillator</li>
-<li>SWD Debug Interface</li>
-<li>I2C Accelerometer Sensor Subsystem</li>
+<li>
+<p><strong>Clocking:</strong><br>
+External 8 MHz crystal (X1) with 15 pF load capacitors for precise timing</p>
+</li>
+<li>
+<p><strong>Programming &amp; Debugging:</strong><br>
+TC2030 SWD header (SWDIO / SWCLK) for firmware flashing and real-time debugging</p>
+</li>
+<li>
+<p><strong>Reset Circuit:</strong></p>
+<ul>
+<li>5.1 kΩ pull-up resistor</li>
+<li>470 nF capacitor for noise filtering<br>
+Ensures stable and reliable startup behavior</li>
 </ul>
-<p>Each subsystem was designed with proper decoupling, signal routing consideration, and modular separation to ensure clean integration.</p>
+</li>
+</ul>
 <hr>
-<h2 id="power-architecture">Power Architecture</h2>
-<p>The board is powered via USB-C (5V VBUS). Power is regulated to 3.3V using an SPX3819 LDO regulator.</p>
-<p><strong>Design considerations:</strong></p>
+<h3 id="usb-to-uart-interface">USB-to-UART Interface</h3>
 <ul>
-<li>Input and output bulk + high-frequency decoupling capacitors</li>
-<li>Stable 3.3V rail for MCU and sensor operation</li>
-<li>Clean ground reference</li>
-<li>USB device-mode CC configuration resistors</li>
+<li><strong>IC:</strong> CH340E USB-to-serial converter</li>
+<li><strong>Function:</strong> Bridges USB differential pair (D+ / D−) to MCU UART</li>
 </ul>
-<p>The LDO-based design prioritizes low noise and simplicity over switching efficiency, suitable for low-power embedded applications.</p>
+<p><strong>Connections:</strong></p>
+<ul>
+<li>PA0 → TX</li>
+<li>PA1 → RX</li>
+</ul>
+<p><strong>Protection:</strong></p>
+<ul>
+<li>USBLC6-2SC6 ESD diode array on USB lines</li>
+<li>Safeguards against electrostatic discharge and hot-plug transients</li>
+</ul>
 <hr>
-<h2 id="microcontroller-subsystem">Microcontroller Subsystem</h2>
-<p>At the core of the design is the MSPM0G3507 microcontroller featuring:</p>
+<h3 id="sensors--peripherals">Sensors &amp; Peripherals</h3>
+<h4 id="lis2dh-accelerometer">LIS2DH Accelerometer</h4>
+<p>A low-power, high-resolution 3-axis accelerometer integrated on the 3.3V domain.</p>
 <ul>
-<li>ARM Cortex-M0+ core</li>
-<li>UART interface for serial communication</li>
-<li>I2C peripheral for sensor communication</li>
-<li>SWD interface for programming and debugging</li>
-<li>External crystal support for accurate timing</li>
-</ul>
-<p><strong>Design considerations:</strong></p>
+<li>
+<p><strong>Interface:</strong> I2C</p>
 <ul>
-<li>Local decoupling capacitors close to VDD pins</li>
-<li>Dedicated reset pull-up and filtering capacitor</li>
-<li>Proper VREF decoupling</li>
-<li>Clean oscillator load matching capacitors</li>
+<li>SDA → PA10</li>
+<li>SCL → PA11</li>
+<li>Pull-ups: 5.1 kΩ</li>
 </ul>
-<p>This reflects production-grade MCU integration practices.</p>
+</li>
+<li>
+<p><strong>Interrupts:</strong></p>
+<ul>
+<li>INT1 → PB8</li>
+<li>INT2 → PB9</li>
+</ul>
+</li>
+</ul>
+<p>Supports interrupt-driven operation, enabling:</p>
+<ul>
+<li>Motion-triggered events</li>
+<li>Low-power sleep modes with wake-on-interrupt</li>
+</ul>
 <hr>
-<h2 id="communication-interfaces">Communication Interfaces</h2>
-<h3 id="usbuart-interface">USB–UART Interface</h3>
-<p>A CH340 USB-to-Serial converter provides:</p>
-<ul>
-<li>Virtual COM port over USB</li>
-<li>Direct firmware logging and debugging</li>
-<li>Simplified development workflow</li>
-</ul>
-<h3 id="i2c-sensor-interface">I2C Sensor Interface</h3>
-<p>An onboard accelerometer is connected via I2C with:</p>
-<ul>
-<li>External pull-up resistors</li>
-<li>Interrupt lines routed to the MCU</li>
-<li>Local decoupling capacitor</li>
-</ul>
-<p>This enables motion-based embedded applications and sensor fusion experimentation.</p>
+<h2 id="technical-specifications">Technical Specifications</h2>
+<table>
+  <thead>
+      <tr>
+          <th>Component</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>MCU</td>
+          <td>TI MSPM0G3507 (ARM Cortex-M0+, up to 80 MHz)</td>
+      </tr>
+      <tr>
+          <td>USB Connector</td>
+          <td>USB-C (USB 2.0 Full Speed)</td>
+      </tr>
+      <tr>
+          <td>Interface IC</td>
+          <td>CH340E USB-to-UART</td>
+      </tr>
+      <tr>
+          <td>Voltage Rails</td>
+          <td>5V (USB), 3.3V (LDO Output)</td>
+      </tr>
+      <tr>
+          <td>Accelerometer</td>
+          <td>LIS2DH (3-axis)</td>
+      </tr>
+      <tr>
+          <td>I2C Address</td>
+          <td>Configurable via hardware</td>
+      </tr>
+      <tr>
+          <td>PCB Features</td>
+          <td>4× M3 mounting holes, 3× fiducials</td>
+      </tr>
+  </tbody>
+</table>
 <hr>
-<h2 id="debug--programming-interface">Debug &amp; Programming Interface</h2>
-<p>A dedicated SWD header provides:</p>
+<h2 id="connectivity-table-key-signals">Connectivity Table (Key Signals)</h2>
+<table>
+  <thead>
+      <tr>
+          <th>Function</th>
+          <th>MCU Pin</th>
+          <th>Peripheral</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>UART TX</td>
+          <td>PA0</td>
+          <td>CH340E RXD</td>
+      </tr>
+      <tr>
+          <td>UART RX</td>
+          <td>PA1</td>
+          <td>CH340E TXD</td>
+      </tr>
+      <tr>
+          <td>I2C SDA</td>
+          <td>PA10</td>
+          <td>LIS2DH SDA</td>
+      </tr>
+      <tr>
+          <td>I2C SCL</td>
+          <td>PA11</td>
+          <td>LIS2DH SCL</td>
+      </tr>
+      <tr>
+          <td>SWDIO</td>
+          <td>PA19</td>
+          <td>TC2030 (Pin 2)</td>
+      </tr>
+      <tr>
+          <td>SWCLK</td>
+          <td>PA20</td>
+          <td>TC2030 (Pin 4)</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h2 id="design-notes">Design Notes</h2>
 <ul>
-<li>SWDIO</li>
-<li>SWCLK</li>
-<li>NRST</li>
-<li>3.3V reference</li>
-<li>Ground</li>
+<li>External crystal ensures accurate UART baud rates and I2C timing</li>
+<li>Interrupt-driven accelerometer minimizes power consumption</li>
+<li>USB ESD protection improves reliability in real-world usage</li>
+<li>Tag-Connect header reduces footprint while maintaining debug access</li>
 </ul>
-<p>This ensures professional debugging capability using external debuggers.</p>
+<hr>
+<h2 id="media">Media</h2>
+<p><img src="static/images/TI_MSPM0.jpeg" alt="Schematic"></p>
+<!-- raw HTML omitted -->
 
         </div>
         <footer>
