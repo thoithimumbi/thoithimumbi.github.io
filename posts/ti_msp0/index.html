@@ -1,47 +1,47 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta http-equiv="content-type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
 
   
       <link href="/css/fonts.css" rel="stylesheet" type="text/css">
     
-  <title>TI_MSPM0</title><link rel="stylesheet" href="/css/hugo-octopress.css">
+  <title>Low-Power MSPM0 Sensor Node With USB-C Connectivity</title><link rel="stylesheet" href="/css/hugo-octopress.css">
 
   
     <link rel="stylesheet" href="/css/fork-awesome.min.css">
   
-    <link href="https://thoithimumbi.github.io/favicon.png" rel="icon">
+    <link href="http://localhost:1313/favicon.png" rel="icon">
   
 
   <meta name="description" content="" />
   <meta name="keywords" content="">
-  <meta name="author" content="thoithimumbi"><meta name="generator" content="Hugo 0.158.0">
+  <meta name="author" content="thoithimumbi"><meta name="generator" content="Hugo 0.161.1">
 
 </head>
-<body><header role="banner"><hgroup><h1><a href="https://thoithimumbi.github.io/">Thoithi Mumbi</a></h1>
+<body><header role="banner"><hgroup><h1><a href="http://localhost:1313/">Thoithi Mumbi</a></h1>
     <h2>A Collection Of All My Works</h2>
 </hgroup></header><nav role="navigation"><fieldset class="mobile-nav"><select onchange="location = this.value;">
     <option value="">Navigate…</option>
       
-        <option value="https://thoithimumbi.github.io/">» Home</option>
+        <option value="http://localhost:1313/">» Home</option>
       
-        <option value="https://thoithimumbi.github.io/posts">» Posts</option>
+        <option value="http://localhost:1313/posts">» Posts</option>
       
-        <option value="https://thoithimumbi.github.io/papers">» Papers</option>
+        <option value="http://localhost:1313/papers">» Papers</option>
       
   </select>
 </fieldset><ul class="main-navigation">
     
-      <li><a href="https://thoithimumbi.github.io/" title="Home">Home</a></li>
+      <li><a href="http://localhost:1313/" title="Home">Home</a></li>
     
   
     
-      <li><a href="https://thoithimumbi.github.io/posts" title="Posts"  target="_blank"  rel="noopener noreferrer">Posts</a></li>
+      <li><a href="http://localhost:1313/posts" title="Posts"  target="_blank"  rel="noopener noreferrer">Posts</a></li>
     
   
     
-      <li><a href="https://thoithimumbi.github.io/papers" title="Papers"  target="_blank"  rel="noopener noreferrer">Papers</a></li>
+      <li><a href="http://localhost:1313/papers" title="Papers"  target="_blank"  rel="noopener noreferrer">Papers</a></li>
     
   
 </ul>
@@ -49,7 +49,7 @@
 <ul class="subscription">
   
     
-        <a href="https://thoithimumbi.github.io/index.xml" target="_blank" type="application/rss+xml" title="RSS" rel="noopener noreferrer"><i class="fa fa-rss-square fa-lg"></i></a>
+        <a href="http://localhost:1313/index.xml" target="_blank" type="application/rss+xml" title="RSS" rel="noopener noreferrer"><i class="fa fa-rss-square fa-lg"></i></a>
     
   
 </ul>
@@ -58,7 +58,7 @@
   <form action="https://www.google.com/search" method="get" target="_blank" rel="noopener noreferrer">
     <fieldset role="search">
       <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-      <input type="hidden" name="q" value="site:https://thoithimumbi.github.io/" />
+      <input type="hidden" name="q" value="site:http://localhost:1313/" />
     </fieldset>
   </form>
 
@@ -76,23 +76,23 @@
      - 2 minute read 
   </p>
   <h1 class="entry-title">
-     TI_MSPM0 
+     Low-Power MSPM0 Sensor Node With USB-C Connectivity 
   </h1>
 </header>
 
 
         <div class="entry-content">
           
-          <h1 id="low-power-mspm0-sensor-node-with-usb-c-connectivity">Low-Power MSPM0 Sensor Node with USB-C Connectivity</h1>
-<h2 id="system-overview">System Overview</h2>
-<p>The board is powered via a USB-C connector, providing a primary 5V rail which is regulated to 3.3V for the MCU and onboard peripherals.</p>
+          <p>The board is powered via a USB-C connector, providing a primary 5V rail which is regulated to 3.3V for the MCU and onboard peripherals.</p>
 <p>The system integrates:</p>
 <ul>
 <li>A high-performance ARM Cortex-M0+ microcontroller</li>
 <li>A USB-to-UART bridge for direct serial communication</li>
 <li>A 3-axis accelerometer for motion sensing applications</li>
 </ul>
-<hr>
+<h2 id="preview">Preview</h2>
+<p>
+<a href="https://github.com/thoithimumbi/TI_MSPM0" target="_blank" rel="noopener">Project Repo</a></p>
 <h2 id="functional-blocks">Functional Blocks</h2>
 <h3 id="power-management">Power Management</h3>
 <ul>
@@ -106,7 +106,6 @@
 </li>
 </ul>
 <p>Decoupling capacitors are placed on both input and output stages to reduce noise and ensure rail stability.</p>
-<hr>
 <h3 id="microcontroller-ti-mspm0g3507">Microcontroller (TI MSPM0G3507)</h3>
 <p>The MSPM0G3507PTR (LQFP-48) serves as the central processing unit.</p>
 <p><strong>Key configurations:</strong></p>
@@ -128,7 +127,6 @@ Ensures stable and reliable startup behavior</li>
 </ul>
 </li>
 </ul>
-<hr>
 <h3 id="usb-to-uart-interface">USB-to-UART Interface</h3>
 <ul>
 <li><strong>IC:</strong> CH340E USB-to-serial converter</li>
@@ -144,7 +142,6 @@ Ensures stable and reliable startup behavior</li>
 <li>USBLC6-2SC6 ESD diode array on USB lines</li>
 <li>Safeguards against electrostatic discharge and hot-plug transients</li>
 </ul>
-<hr>
 <h3 id="sensors--peripherals">Sensors &amp; Peripherals</h3>
 <h4 id="lis2dh-accelerometer">LIS2DH Accelerometer</h4>
 <p>A low-power, high-resolution 3-axis accelerometer integrated on the 3.3V domain.</p>
@@ -170,7 +167,6 @@ Ensures stable and reliable startup behavior</li>
 <li>Motion-triggered events</li>
 <li>Low-power sleep modes with wake-on-interrupt</li>
 </ul>
-<hr>
 <h2 id="technical-specifications">Technical Specifications</h2>
 <table>
   <thead>
@@ -210,7 +206,6 @@ Ensures stable and reliable startup behavior</li>
       </tr>
   </tbody>
 </table>
-<hr>
 <h2 id="connectivity-table-key-signals">Connectivity Table (Key Signals)</h2>
 <table>
   <thead>
@@ -253,7 +248,6 @@ Ensures stable and reliable startup behavior</li>
       </tr>
   </tbody>
 </table>
-<hr>
 <h2 id="design-notes">Design Notes</h2>
 <ul>
 <li>External crystal ensures accurate UART baud rates and I2C timing</li>
@@ -261,10 +255,6 @@ Ensures stable and reliable startup behavior</li>
 <li>USB ESD protection improves reliability in real-world usage</li>
 <li>Tag-Connect header reduces footprint while maintaining debug access</li>
 </ul>
-<hr>
-<h2 id="media">Media</h2>
-<p><img src="static/images/TI_MSPM0.jpeg" alt="Schematic"></p>
-<!-- raw HTML omitted -->
 
         </div>
         <footer>
@@ -276,7 +266,7 @@ Ensures stable and reliable startup behavior</li>
     
 
     
-      <a class="basic-alignment right" href="https://thoithimumbi.github.io/posts/autonomous_sar_robot/" title="Smart Control Robot with Environmental and Human Monitoring">Smart Control Robot with Environmental and Human Monitoring</a>
+      <a class="basic-alignment right" href="http://localhost:1313/posts/autonomous_sar_robot/" title="Smart Control Robot with Environmental and Human Monitoring">Smart Control Robot with Environmental and Human Monitoring</a>
     
   </p>
   
@@ -295,10 +285,9 @@ Ensures stable and reliable startup behavior</li>
 
     <p>
       
-        <p>I am a Mechatronic Engineering student focused on Hardware design, Firmware development, 3D Design, Control Systems and Automotive Engineering.</p>
-<p>This site serves as a technical portfolio<br>
-Documenting projects, system designs and journals.</p>
-<p>Connect</p>
+        <p>BSc. Mechatronic Engineering Student</p>
+<p>Hardware • Firmware • CAD • Control Systems • Automotive</p>
+<p>Portfolio &amp; Technical Journal</p>
 
       
     </p>
@@ -324,7 +313,7 @@ Documenting projects, system designs and journals.</p>
         
         
           <li>
-            <a href="https://thoithimumbi.github.io/about" title="About Page" >About Page</a>
+            <a href="http://localhost:1313/about" title="About Page" >About Page</a>
           </li>
         
       </section>
@@ -346,7 +335,7 @@ Documenting projects, system designs and journals.</p>
 </div>
 
     <footer role="contentinfo">
-      <p>Copyright &copy; 2026 thoithimumbi - <a href="https://thoithimumbi.github.io/license/">License</a> -
+      <p>Copyright &copy; 2026 thoithimumbi - <a href="http://localhost:1313/license/">License</a> -
         <span class="credit">Powered by <a target="_blank" href="https://gohugo.io" rel="noopener noreferrer">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/" rel="noopener noreferrer">Hugo-Octopress</a> theme.
       </p>
     </footer>

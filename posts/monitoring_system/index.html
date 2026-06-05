@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  <title>Heat Pump Monitoring System</title><link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+    <link href="http://localhost:1313/favicon.png" rel="icon">
+  
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="">
+  <meta name="author" content="thoithimumbi"><meta name="generator" content="Hugo 0.161.1">
+
+</head>
+<body><header role="banner"><hgroup><h1><a href="http://localhost:1313/">Thoithi Mumbi</a></h1>
+    <h2>A Collection Of All My Works</h2>
+</hgroup></header><nav role="navigation"><fieldset class="mobile-nav"><select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+        <option value="http://localhost:1313/">» Home</option>
+      
+        <option value="http://localhost:1313/posts">» Posts</option>
+      
+        <option value="http://localhost:1313/papers">» Papers</option>
+      
+  </select>
+</fieldset><ul class="main-navigation">
+    
+      <li><a href="http://localhost:1313/" title="Home">Home</a></li>
+    
+  
+    
+      <li><a href="http://localhost:1313/posts" title="Posts"  target="_blank"  rel="noopener noreferrer">Posts</a></li>
+    
+  
+    
+      <li><a href="http://localhost:1313/papers" title="Papers"  target="_blank"  rel="noopener noreferrer">Papers</a></li>
+    
+  
+</ul>
+
+<ul class="subscription">
+  
+    
+        <a href="http://localhost:1313/index.xml" target="_blank" type="application/rss+xml" title="RSS" rel="noopener noreferrer"><i class="fa fa-rss-square fa-lg"></i></a>
+    
+  
+</ul>
+
+
+  <form action="https://www.google.com/search" method="get" target="_blank" rel="noopener noreferrer">
+    <fieldset role="search">
+      <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+      <input type="hidden" name="q" value="site:http://localhost:1313/" />
+    </fieldset>
+  </form>
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        <header>
+  <p class="meta">Jun 5, 2026
+     - 3 minute read 
+  </p>
+  <h1 class="entry-title">
+     Heat Pump Monitoring System 
+  </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          <p>The Heat Pump Monitoring System is a custom-designed, industrial-grade IoT hardware architecture built to capture, process, and transmit high-precision thermodynamic data. The primary objective of this system is to continuously calculate the real-time efficiency (Coefficient of Performance - COP) of a hydronic heat pump.</p>
+<p>By offloading complex floating-point mathematics and high-speed hardware interrupts to a dedicated Cortex-M4 microcontroller, and bridging it with an ESP32 Network Co-Processor for Wi-Fi telemetry, this project ensures research-grade data integrity and robust operational stability.</p>
+<h2 id="preview">Preview</h2>
+<p>
+<a href="https://github.com/thoithimumbi/TI_MSPM0/" target="_blank" rel="noopener">Project Repo</a></p>
+<h2 id="system-architecture">System Architecture</h2>
+<p>The system employs a dual-microcontroller topology to separate strict real-time data acquisition from high-latency network tasks.</p>
+<ol>
+<li><strong>The Core Engine (Data Acquisition):</strong> An <strong>STM32F411CEU6</strong> handles all hardware-level sensor polling, microsecond-precise 1-Wire communication, and interrupt-driven frequency counting.</li>
+<li><strong>The Network Co-Processor (Telemetry):</strong> An <strong>ESP32-WROOM-32E</strong> is bridged to the STM32 via a high-speed UART interface. The STM32 streams formatted data payloads to the ESP32, which securely publishes the metrics to a cloud dashboard via MQTT over Wi-Fi.</li>
+</ol>
+<h2 id="hardware-specifications--sensor-suite">Hardware Specifications &amp; Sensor Suite</h2>
+<h3 id="microcontroller-unit">Microcontroller Unit</h3>
+<ul>
+<li><strong>STM32F411CEU6 (100 MHz ARM Cortex-M4):</strong> Selected for its integrated Floating-Point Unit (FPU), which is critical for calculating fluid flow rates and thermodynamic formulas without processor latency.</li>
+</ul>
+<h3 id="sensors--peripherals">Sensors &amp; Peripherals</h3>
+<ul>
+<li><strong>Air Quality (SHT31):</strong> Dual high-precision digital I2C sensors monitor the Air-In and Air-Out temperatures (±0.2°C) and humidity. Utilizing distinct hardware addresses (<code>0x44</code> and <code>0x45</code>), both sensors efficiently share a single I2C bus (<code>MCU_SCL</code>/<code>MCU_SDA</code>).</li>
+<li><strong>Fluid Temperature (DS18B20):</strong> Waterproof stainless-steel probes track the H2O-In and H2O-Out lines. Leveraging their unique 64-bit laser-etched ROM IDs, multiple probes are parallel-wired onto a single 1-Wire data pin (<code>PB12</code>), simplifying the PCB routing.</li>
+<li>**Hydronic FloD</li>
+<li><strong>Local Display:</strong> A 5V 16x2/20x4 I2C LCD Backpack provides real-time, on-site diagnostics.</li>
+</ul>
+<h2 id="pcb-design--hardware-protection">PCB Design &amp; Hardware Protection</h2>
+<p>The physical Printed Circuit Board (PCB) was designed with strict Design for Manufacturing (DFM) principles and robust electrical protection.</p>
+<ul>
+<li><strong>Mixed-Voltage Signal Translation:</strong> To safely interface the 3.3V STM32 with the 5V LCD Display, a <strong>PCA9306</strong> dedicated bidirectional logic level translator IC is utilized to ensure high-speed I2C data integrity.</li>
+<li><strong>Overvoltage Clamping:</strong> The 5V square wave from the YF-S201 flow sensor is safely clamped before reaching the STM32 using a 4.7kΩ pull-up resistor and a <strong>BAT54W</strong> Schottky diode, safely shunting overvoltage spikes to the 3.3V rail.</li>
+<li><strong>ESD &amp; Power Protection:</strong> The USB-C input utilizes a <strong>USBLC6-2SC6</strong> transient voltage suppression array for ESD protection on the data lines. Mandatory 5.1kΩ pull-down resistors on CC1/CC2 ensure correct 5V power negotiation from smart USB-C hosts.</li>
+<li><strong>DFM &amp; Factory Assembly:</strong> The PCB layout features four optical fiducial markers for automated SMT Pick-and-Place alignment, alongside standard mechanical mounting holes for enclosure installation.</li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<p>This project successfully delivered a custom, production-ready IoT hardware architecture capable of capturing robust, research-grade thermodynamic data for real-time heat pump analysis. By combining advanced logic-level translation, intelligent communication bus merging, and distinct separation of networking and real-time processing duties, the board serves as a highly scalable platform for energy efficiency studies.</p>
+
+        </div>
+        <footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn">thoithimumbi</span></span><time>Jun 5, 2026</time>
+    
+    </span>
+  </p><p class="meta">
+    
+        <a class="basic-alignment left" href="http://localhost:1313/posts/autonomous_sar_robot/" title="Smart Control Robot with Environmental and Human Monitoring">Smart Control Robot with Environmental and Human Monitoring</a>
+    
+
+    
+  </p>
+  
+  
+</footer>
+
+
+      </article>
+    </div>
+    <aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About</h1>
+    
+
+    <p>
+      
+        <p>BSc. Mechatronic Engineering Student</p>
+<p>Hardware • Firmware • CAD • Control Systems • Automotive</p>
+<p>Portfolio &amp; Technical Journal</p>
+
+      
+    </p>
+  </section><ul class="sidebar-nav">
+  <li class="sidebar-nav-item">
+    <a target="_blank" rel="noopener noreferrer" href="https://github.com/thoithimumbi" title="https://github.com/thoithimumbi"><i class="fa fa-github fa-3x"></i></a>
+    
+    
+    
+    <a target="_blank" rel="me noopener noreferrer" href="https://mastodon.social/@Thoithi" title="https://mastodon.social/@Thoithi"><i class="fa fa-mastodon fa-3x"></i></a>
+    
+    <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/thoithi-mumbi" title="https://www.linkedin.com/in/thoithi-mumbi"><i class="fa fa-linkedin fa-3x"></i></a>
+    
+    
+    
+    
+    </li>
+</ul>
+    
+      <section class="odd">
+        
+          <h1>Links</h1>
+        
+        
+          <li>
+            <a href="http://localhost:1313/about" title="About Page" >About Page</a>
+          </li>
+        
+      </section>
+    
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+        </ul>
+      </section>
+    
+  
+</aside>
+
+  </div>
+</div>
+
+    <footer role="contentinfo">
+      <p>Copyright &copy; 2026 thoithimumbi - <a href="http://localhost:1313/license/">License</a> -
+        <span class="credit">Powered by <a target="_blank" href="https://gohugo.io" rel="noopener noreferrer">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/" rel="noopener noreferrer">Hugo-Octopress</a> theme.
+      </p>
+    </footer>
+  </body>
+</html>
+
